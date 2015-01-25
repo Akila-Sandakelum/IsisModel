@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------
+Test set: integration.tests.smoke.SimpleObjectTest$Name
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.078 sec <<< FAILURE! - in integration.tests.smoke.SimpleObjectTest$Name
+exists(integration.tests.smoke.SimpleObjectTest$Name)  Time elapsed: 0.062 sec  <<< FAILURE!
+java.lang.AssertionError: 
+Expected: is not null
+     but: was null
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:865)
+	at org.junit.Assert.assertThat(Assert.java:832)
+	at integration.tests.smoke.SimpleObjectTest$Name.exists(SimpleObjectTest.java:59)
+

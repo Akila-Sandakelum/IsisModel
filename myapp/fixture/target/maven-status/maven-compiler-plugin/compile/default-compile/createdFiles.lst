@@ -1,0 +1,7 @@
+fixture\simple\scenario\PetsFixture.class
+fixture\simple\objects\PetAbstract.class
+fixture\simple\objects\PetForBar.class
+fixture\simple\PetsTearDownFixture.class
+fixture\simple\SimpleObjectsFixturesService.class
+fixture\simple\objects\PetForBaz.class
+fixture\simple\objects\PetForFoo.class

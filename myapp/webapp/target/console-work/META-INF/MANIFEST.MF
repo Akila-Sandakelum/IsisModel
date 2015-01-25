@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Build-Time: 2015-01-25T16:21:33Z
+Build-Java: 1.7.0_15
+Build-OS: Windows 8
+Built-By: Akilaz
+Build-Jdk: 1.7.0_15
+Build-Maven: Maven 3.2.3
+Build-Label: 1.0-SNAPSHOT
+Created-By: Apache Maven 3.2.3
+Build-Host: 
+Build-User: Akilaz
+Archiver-Version: Plexus Archiver
+
