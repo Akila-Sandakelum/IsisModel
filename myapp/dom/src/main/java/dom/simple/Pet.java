@@ -18,10 +18,13 @@
  */
 package dom.simple;
 
+import java.util.List;
+
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.AutoComplete;
 import org.apache.isis.applib.annotation.Bookmarkable;
 import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -29,50 +32,69 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.util.ObjectContracts;
 
 @SuppressWarnings("deprecation")
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
-@javax.jdo.annotations.DatastoreIdentity(
-        strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-         column="id")
-@javax.jdo.annotations.Version(
-        strategy=VersionStrategy.VERSION_NUMBER, 
-        column="version")
-@javax.jdo.annotations.Unique(name="SimpleObject_name_UNQ", members = {"name"})
+@javax.jdo.annotations.PersistenceCapable(identityType = IdentityType.DATASTORE)
+@javax.jdo.annotations.DatastoreIdentity(strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column = "id")
+@javax.jdo.annotations.Version(strategy = VersionStrategy.VERSION_NUMBER, column = "version")
+@javax.jdo.annotations.Unique(name = "SimpleObject_name_UNQ", members = { "name" })
 @Bookmarkable
 public class Pet implements Comparable<Pet> {
 
-    //region > name (property)
+	// region > name (property)
 
-    private String name;
+	private String name;
 
-    @javax.jdo.annotations.Column(allowsNull="false")
-    @Title(sequence="1")
-    @MemberOrder(sequence="1")
-    @MaxLength(10)
-    public String getName() {
-        return name;
-    }
+	@javax.jdo.annotations.Column(allowsNull = "false")
+	@Title(sequence = "1")
+	@MemberOrder(sequence = "1")
+	@MaxLength(10)
+	public String getName() {
+		return name;
+	}
 
-    public void setName(final String name) {
-        this.name = name;
-    }
+	public void setName(final String name) {
+		this.name = name;
+	}
 
-    //endregion
+	// endregion
 
-    //region > compareTo
+	// //////////////////////////////////////
+	// speaker (property)
+	// //////////////////////////////////////
 
-    @Override
-    public int compareTo(Pet other) {
-        return ObjectContracts.compare(this, other, "name");
-    }
+	private Owner owner;
 
-    //endregion
+	@javax.jdo.annotations.Column(allowsNull = "true")
+	@MemberOrder(sequence = "2")
+	public Owner getOwner() {
+		return owner;
+	}
 
-    //region > injected services
+	public void setOwner(final Owner owner) {
+		this.owner = owner;
+	}
 
-    @javax.inject.Inject
-    @SuppressWarnings("unused")
-    private DomainObjectContainer container;
+	public List<Owner> autoCompleteOwner(String search){
+		return owners.findByName(search);
+	}
 
-    //endregion
+	// region > compareTo
+
+	@Override
+	public int compareTo(Pet other) {
+		return ObjectContracts.compare(this, other, "name");
+	}
+
+	// endregion
+
+	// region > injected services
+
+	@javax.inject.Inject
+	@SuppressWarnings("unused")
+	private DomainObjectContainer container;
+
+	// endregion
+	@javax.inject.Inject
+	@SuppressWarnings("unused")
+	private Owners owners;
 
 }
