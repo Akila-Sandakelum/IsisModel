@@ -20,13 +20,15 @@ package dom.simple;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bookmarkable;
+import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.ObjectType;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.util.ObjectContracts;
 
+@SuppressWarnings("deprecation")
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
@@ -35,7 +37,6 @@ import org.apache.isis.applib.util.ObjectContracts;
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
 @javax.jdo.annotations.Unique(name="SimpleObject_name_UNQ", members = {"name"})
-@ObjectType("SIMPLE")
 @Bookmarkable
 public class Pet implements Comparable<Pet> {
 
@@ -46,6 +47,7 @@ public class Pet implements Comparable<Pet> {
     @javax.jdo.annotations.Column(allowsNull="false")
     @Title(sequence="1")
     @MemberOrder(sequence="1")
+    @MaxLength(10)
     public String getName() {
         return name;
     }

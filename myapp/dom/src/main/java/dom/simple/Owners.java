@@ -29,9 +29,9 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ParameterLayout;
 
-@DomainService(repositoryFor = Pet.class)
-@DomainServiceLayout(menuOrder="10")
-public class Pets {
+@DomainService(repositoryFor = Owner.class)
+@DomainServiceLayout(menuOrder="20")
+public class Owners {
 
     //region > listAll (action)
 
@@ -39,17 +39,17 @@ public class Pets {
 	@Bookmarkable
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "1")
-    public List<Pet> listAll() {
-        return container.allInstances(Pet.class);
+    public List<Owner> listAll() {
+        return container.allInstances(Owner.class);
     }
 
     //endregion
 
     //region > create (action)
     @MemberOrder(sequence = "2")
-    public Pet create(
+    public Owner create(
             final @ParameterLayout(named="Name") String name) {
-        final Pet obj = container.newTransientInstance(Pet.class);
+        final Owner obj = container.newTransientInstance(Owner.class);
         obj.setName(name);
         container.persistIfNotAlready(obj);
         return obj;
