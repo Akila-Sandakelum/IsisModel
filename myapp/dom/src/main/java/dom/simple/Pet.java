@@ -36,6 +36,15 @@ import org.apache.isis.applib.util.ObjectContracts;
 @javax.jdo.annotations.DatastoreIdentity(strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column = "id")
 @javax.jdo.annotations.Version(strategy = VersionStrategy.VERSION_NUMBER, column = "version")
 @javax.jdo.annotations.Unique(name = "SimpleObject_name_UNQ", members = { "name" })
+
+@javax.jdo.annotations.Queries({
+    @javax.jdo.annotations.Query(
+            name="findByName", language="JDOQL",
+            value="SELECT "
+                    + "FROM dom.simple.Pet "
+                    + "WHERE name.matches(:name) ")
+                   
+})
 @Bookmarkable
 public class Pet implements Comparable<Pet> {
 

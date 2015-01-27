@@ -26,52 +26,54 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Bookmarkable;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.value.DateTime;
+import org.joda.time.LocalDate;
 
-@DomainService(repositoryFor = Pet.class)
-@DomainServiceLayout(menuOrder="10")
-public class Pets {
+@DomainService(repositoryFor = Visit.class)
+@DomainServiceLayout(menuOrder = "30")
+public class Visits {
 
-    //region > listAll (action)
+	// region > listAll (action)
 
-    @SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation")
 	@Bookmarkable
-    @ActionSemantics(Of.SAFE)
-    @MemberOrder(sequence = "1")
-    public List<Pet> listAll() {
-        return container.allInstances(Pet.class);
-    }
-
-    //endregion
-
-    //region > create (action)
-    @MemberOrder(sequence = "2")
-    public Pet create(
-            final @ParameterLayout(named="Name") String name) {
-        final Pet obj = container.newTransientInstance(Pet.class);
-        obj.setName(name);
-        container.persistIfNotAlready(obj);
-        return obj;
-    }
-
-    //endregion
-
-    //region > injected services
-
-    @javax.inject.Inject 
-    DomainObjectContainer container;
-
-    @Programmatic
-	public List<Pet> findByName(String search) {
-		return container.allMatches(
-                new QueryDefault<Pet>(Pet.class, 
-                        "findByName", 
-                        "name", ".*"+search+".*"));
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(sequence = "1")
+	public List<Visit> listAll() {
+		return container.allInstances(Visit.class);
 	}
 
-    //endregion
+	// endregion
+
+	// region > create (action)
+	@MemberOrder(sequence = "2")
+	public Visit create(
+			final @ParameterLayout(named = "Diagnosis") String diagnosis,
+			final @ParameterLayout(named = "CheckIn") LocalDate checkin,
+			final @ParameterLayout(named = "CheckOut") LocalDate checkout) {
+		final Visit obj = container.newTransientInstance(Visit.class);
+		obj.setDiagnosis(diagnosis);
+		obj.setCheckIn(checkin);
+		obj.setCheckOut(checkout);
+		container.persistIfNotAlready(obj);
+		return obj;
+	}
+	
+	// endregion
+
+	// region > injected services
+
+	@javax.inject.Inject
+	DomainObjectContainer container;
+	
+
+
+	// endregion
 
 }
